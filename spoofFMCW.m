@@ -1,3 +1,6 @@
+%uses theories and practices discussed in this paper https://dl.acm.org/doi/pdf/10.1145/3474376.3487283
+%CURRENTLY DOES NOT MANIPULATE VELOCITY JUST DISTANCE
+
 function slope = calculate_slope(fmcw_waveform, sampling_frequency)
     % Find the frequency range of the FMCW waveform
     f_start = min(fmcw_waveform);
