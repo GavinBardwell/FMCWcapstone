@@ -21,28 +21,28 @@ function beat_frequency = calculate_beat_frequency(received_signal, sampling_fre
 end
 
 function outputWaveform = spoofingFMCW(inputWaveform,distanceChange, velocityChange)
-%spoofingFMCW is the function that will spoof fmcw radar intput of
-%(inputWave following what is the distanceChange, and change of velocity
-c=3e8;
-
-%find beat frequency
-beat_frequency = calculate_beat_frequency(inputWaveform, 1e6);
-
-%traditional equation is d  = c*fb/2S(from victims POV)
-%since we are calculating distance from the attackers point of view we must
-%multiply by 2. Fb = St, t = 2d/c(time it takes to go there and back)
-%d = Fb * c/ S
-inputWaveSlope = calculate_slope(inputWaveform, 1e6);
-currentDistance = c * beat_frequency / inputWaveSlope;
-addedTime = 2 * distanceChange / c;
-
-% Calculate the number of samples to shift
-num_samples_to_shift = round(addedTime * 1e6);%sampling frequency
-
-% Create a zero-padded waveform for shifting
-zero_padded_waveform = [zeros(1, num_samples_to_shift), inputWaveform];
-
-% Shift the waveform
-outputWaveform = zero_padded_waveform(1:length(inputWaveform));
+    %spoofingFMCW is the function that will spoof fmcw radar intput of
+    %(inputWave following what is the distanceChange, and change of velocity
+    c=3e8;
+    
+    %find beat frequency
+    beat_frequency = calculate_beat_frequency(inputWaveform, 1e6);
+    
+    %traditional equation is d  = c*fb/2S(from victims POV)
+    %since we are calculating distance from the attackers point of view we must
+    %multiply by 2. Fb = St, t = 2d/c(time it takes to go there and back)
+    %d = Fb * c/ S
+    inputWaveSlope = calculate_slope(inputWaveform, 1e6);
+    currentDistance = c * beat_frequency / inputWaveSlope;
+    addedTime = 2 * distanceChange / c;
+    
+    % Calculate the number of samples to shift
+    num_samples_to_shift = round(addedTime * 1e6);%sampling frequency
+    
+    % Create a zero-padded waveform for shifting
+    zero_padded_waveform = [zeros(1, num_samples_to_shift), inputWaveform];
+    
+    % Shift the waveform
+    outputWaveform = zero_padded_waveform(1:length(inputWaveform));
 
 end
